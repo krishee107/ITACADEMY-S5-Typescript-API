@@ -20,18 +20,18 @@ let joke = {
 /* GENERAR UN NUEVO CHISTE */
 const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    //Ocultar las estrellas
+    //Mostrar loading mientras cargamos el chiste
+    (_a = document.getElementById("loading")) === null || _a === void 0 ? void 0 : _a.classList.remove("hidden");
+    //Ocultamos las estrellas hasta que cargue el chiste
     document.getElementById("stars-box").style.display = "none";
-    //Reiniciarlas a 0 votos
+    //Reiniciamos todas las variables para el nuevo chiste
     if (check) {
         addRate();
         rateJoke(0);
         check = false;
         rate = null;
     }
-    //Mostrar loading
-    (_a = document.getElementById("loading")) === null || _a === void 0 ? void 0 : _a.classList.remove("hidden");
-    //Fetch
+    //Fetch a la API
     const data = yield fetch("http://icanhazdadjoke.com", {
         headers: {
             "Accept": "application/json"
@@ -50,7 +50,8 @@ const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     //No funciona
     else {
-        console.log("No se ha podido cargar el chiste");
+        //Mostrar mensaje de error
+        document.getElementById("texto-chiste").innerHTML = "No se ha podido cargar el chiste";
     }
 });
 /* EFECTO HOVER PARA LAS ESTRELLAS */
@@ -106,6 +107,7 @@ const rateJoke = (numStars) => {
             break;
     }
 };
+//GUARDAR LA VOTACION
 const addRate = () => {
     //Guardamos el chiste en el objeto
     joke.joke = document.getElementById("texto-chiste").innerHTML;
@@ -114,6 +116,8 @@ const addRate = () => {
     joke.date = d.toISOString();
     //Guardamos la puntuación
     joke.score = rate;
+    //Lo añadimos al array
     reportAcudits.push({ joke });
+    //Resultado
     console.log(reportAcudits);
 };
