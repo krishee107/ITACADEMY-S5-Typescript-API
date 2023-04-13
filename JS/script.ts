@@ -30,8 +30,15 @@ const generarChiste = async () => {
         rate = null;
     }
 
+    //Random api
+    const randomNum = Math.floor(Math.random() * 10);
+    console.log(randomNum)
+    let API: string = "";
+    if (randomNum % 2 == 0) API = "https://v2.jokeapi.dev/joke/Any?lang=es&type=single";
+    else API = "http://icanhazdadjoke.com";
+
     //Fetch a la API
-    const data = await fetch("http://icanhazdadjoke.com", {
+    const data = await fetch(API, {
         headers: {
             "Accept": "application/json"
         },
@@ -43,7 +50,7 @@ const generarChiste = async () => {
 
     //Comprobamos errores 
     //Funciona
-    if (newjoke.status === 200) {
+    if (newjoke.status === 200 || newjoke.error == false) {
         //Mostrar estrellas
         document.getElementById("stars-box")!.style.display = "flex";
         //Mostrar chiste
