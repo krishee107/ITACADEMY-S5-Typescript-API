@@ -5,6 +5,12 @@ let reportAcudits: {
 }[] = [];
 
 const generarChiste = async () => {
+    //Ocultar las estrellas
+    document.getElementById("stars-box")!.style.display = "none";
+    //Mostrar loading
+    document.getElementById("loading")?.classList.remove("hidden")
+
+    //Fetch
     const data = await fetch("http://icanhazdadjoke.com", {
         headers: {
             "Accept": "application/json"
@@ -12,10 +18,15 @@ const generarChiste = async () => {
     });
 
     const joke = await data.json();
+    //Quitar el loading
+    document.getElementById("loading")?.classList.add("hidden")
 
     //Comprobamos errores 
     //Funciona
     if (joke.status === 200) {
+        //Mostrar estrellas
+        document.getElementById("stars-box")!.style.display = "flex";
+        //Mostrar chiste
         document.getElementById("texto-chiste")!.innerHTML = joke.joke;
     }
     //No funciona

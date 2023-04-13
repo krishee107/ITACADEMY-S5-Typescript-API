@@ -10,15 +10,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 let reportAcudits = [];
 const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    //Ocultar las estrellas
+    document.getElementById("stars-box").style.display = "none";
+    //Mostrar loading
+    (_a = document.getElementById("loading")) === null || _a === void 0 ? void 0 : _a.classList.remove("hidden");
+    //Fetch
     const data = yield fetch("http://icanhazdadjoke.com", {
         headers: {
             "Accept": "application/json"
         },
     });
     const joke = yield data.json();
+    //Quitar el loading
+    (_b = document.getElementById("loading")) === null || _b === void 0 ? void 0 : _b.classList.add("hidden");
     //Comprobamos errores 
     //Funciona
     if (joke.status === 200) {
+        //Mostrar estrellas
+        document.getElementById("stars-box").style.display = "flex";
+        //Mostrar chiste
         document.getElementById("texto-chiste").innerHTML = joke.joke;
     }
     //No funciona

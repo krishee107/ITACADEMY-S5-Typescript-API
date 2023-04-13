@@ -29,6 +29,10 @@ body {
 }
 
 /* Estrellas */
+.stars-box {
+    display: none;
+}
+
 .fa-solid {
     color: gray;
 }
@@ -36,4 +40,9 @@ body {
 .fa-solid:hover {
     cursor: pointer;
     color: yellow;
+}
+
+/* Loading */
+.hidden {
+    display: none;
 }
