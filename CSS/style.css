@@ -42,6 +42,14 @@ body {
     color: yellow;
 }
 
+.yellow {
+    color: yellow;
+}
+
+.gray {
+    color: gray
+}
+
 /* Loading */
 .hidden {
     display: none;
