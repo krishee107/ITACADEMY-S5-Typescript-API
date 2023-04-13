@@ -29,7 +29,7 @@ body {
 }
 
 /* Estrellas */
-.stars-box {
+#stars-box {
     display: none;
 }
 
