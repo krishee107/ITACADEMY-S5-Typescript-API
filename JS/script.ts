@@ -12,7 +12,7 @@ const generarChiste = async () => {
     //Comprobamos errores 
     //Funciona
     if (joke.status === 200) {
-        console.log(joke.joke);
+        document.getElementById("texto-chiste")!.innerHTML = joke.joke;
     }
     //No funciona
     else {

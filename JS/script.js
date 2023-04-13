@@ -18,7 +18,7 @@ const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
     //Comprobamos errores 
     //Funciona
     if (joke.status === 200) {
-        console.log(joke.joke);
+        document.getElementById("texto-chiste").innerHTML = joke.joke;
     }
     //No funciona
     else {
