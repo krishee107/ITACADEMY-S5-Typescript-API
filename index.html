@@ -5,10 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="JS/script.js"></script>
     <link rel="stylesheet" href="./CSS/style.css">
     <title>Joke</title>
@@ -16,41 +12,68 @@
 
 <body>
 
+    <div id="wheather" class="box">
+        <div class="wheather_img"><img src="./img/nf19_(213).jpg" alt="Wheather ico"></div>
+        <div id="wheather_text"></div>
+    </div>
+
     <div class="container">
-        <div class="card">
-            <div class="card-content">
-                <div id="loading" class="hidden"><img src="./img/loading.gif" alt="Loading"></div>
-                <p class="title" id="texto-chiste">
-                    “ ... ”
-                </p>
+        <div class="joke">
+            <h1 class="title">Preparat per riure?</h1>
+            <div id="loading" class="hidden"><img src="./img/loading.gif" alt="Loading"></div>
+            <p id="texto-chiste"> "..." </p>
+
+            <div id="emoji">
+                <div class="sad" onclick="rateJoke(1)"><img src="./img/sad.webp" alt="Rate sad"></div>
+                <div class="meh" onclick="rateJoke(2)"><img src="./img/what.webp" alt="Rate meh"></div>
+                <div class="happy" onclick="rateJoke(3)"><img src="./img/happy.webp" alt="Rate happy"></div>
             </div>
-            <footer class="card-footer">
-                <div class="card-footer-item" id="stars-box">
-                    <div id="stars">
-                        <i class="fa-solid fa-star" id="one-star" onmouseover="hoverStars(1, ' yellow')"
-                            onmouseout="hoverStars(1, 'gray')" onclick="rateJoke(1)"></i>
-                        <i class="fa-solid fa-star" id="two-star" onmouseover="hoverStars(2, ' yellow')"
-                            onmouseout="hoverStars(2, 'gray')" onclick="rateJoke(2)"></i>
-                        <i class="fa-solid fa-star" id="three-star" onmouseover="hoverStars(3, ' yellow')"
-                            onmouseout="hoverStars(3, 'gray')" onclick="rateJoke(3)"></i>
-                    </div>
-                </div>
-                <p class="card-footer-item">
-                    <span id="btnChiste" onclick="generarChiste()">
-                        Next joke
-                    </span>
-                </p>
-            </footer>
-        </div>
 
-
-        <!-- Wheather -->
-        <div class="box">
-            <div id="wheather_title"></div>
-            <div id="wheather_text"></div>
+            <button class="button-53" id="btnChiste" onclick="generarChiste()">Següent acudit</button>
         </div>
 
     </div>
+
+
+
+    <!-- EXTRA - Desactivado en el ultimo commit -->
+    <!--
+            <div class="container">
+                <div class="card">
+                    <div class="card-content">
+                        <div id="loading" class="hidden"><img src="./img/loading.gif" alt="Loading"></div>
+                        <p class="title" id="texto-chiste">
+                            “ ... ”
+                        </p>
+                    </div>
+                    <footer class="card-footer">
+                        <div class="card-footer-item" id="stars-box">
+                            <div id="stars">
+                                <i class="fa-solid fa-star" id="one-star" onmouseover="hoverStars(1, ' yellow')"
+                                    onmouseout="hoverStars(1, 'gray')" onclick="rateJoke(1)"></i>
+                                <i class="fa-solid fa-star" id="two-star" onmouseover="hoverStars(2, ' yellow')"
+                                    onmouseout="hoverStars(2, 'gray')" onclick="rateJoke(2)"></i>
+                                <i class="fa-solid fa-star" id="three-star" onmouseover="hoverStars(3, ' yellow')"
+                                    onmouseout="hoverStars(3, 'gray')" onclick="rateJoke(3)"></i>
+                            </div>
+                        </div>
+                        <p class="card-footer-item">
+                            <span id="btnChiste" onclick="generarChiste()">
+                                Next joke
+                            </span>
+                        </p>
+                    </footer>
+                </div>
+            -->
+
+    <!-- Wheather -->
+    <!--
+    <div class="box">
+        <div id="wheather_title"></div>
+        <div id="wheather_text"></div>
+    </div>
+
+    </div>-->
 
 </body>
 

@@ -8,8 +8,6 @@ interface Joke {
 let reportAcudits: { joke: Joke }[] = [];
 let check = false;
 let rate: number | null;
-
-
 let joke: Joke = {
     joke: "",
     score: undefined,
@@ -17,6 +15,108 @@ let joke: Joke = {
 }
 
 /* GENERAR UN NUEVO CHISTE */
+const generarChiste = async () => {
+    //Mostrar loading mientras cargamos el chiste y quitamos el chiste anterior
+    document.getElementById("loading")?.classList.remove("hidden")
+    document.getElementById("texto-chiste")!.style.display = "none ";
+    //Desactivamos los emojis
+    document.getElementById("emoji")!.style.display = "none ";
+
+
+    //Reiniciamos todas las variables para el nuevo chiste
+    if (check) {
+        addRate();
+        check = false;
+        rate = null;
+    }
+
+    //Random api
+    const randomNum = Math.floor(Math.random() * 10);
+    let API: string = "";
+    if (randomNum % 2 == 0) API = "https://v2.jokeapi.dev/joke/Any?lang=es&type=single";
+    else API = "http://icanhazdadjoke.com";
+
+    //Fetch a la API
+    const data = await fetch(API, {
+        headers: {
+            "Accept": "application/json"
+        },
+    });
+    const newjoke = await data.json();
+
+    //Quitar el loading
+    document.getElementById("loading")!.classList.add("hidden")
+    //Mostramos los emojis
+    document.getElementById("emoji")!.style.display = "flex";
+
+    //Comprobamos errores 
+    //Funciona
+    if (newjoke.status === 200 || newjoke.error == false) {
+        //Mostrar chiste
+        document.getElementById("texto-chiste")!.innerHTML = newjoke.joke;
+    }
+    //No funciona
+    else {
+        //Mostrar mensaje de error
+        document.getElementById("texto-chiste")!.innerHTML = "No se ha podido cargar el chiste";
+    }
+
+
+    //Mostramos el campo del chiste
+    document.getElementById("texto-chiste")!.style.display = "block";
+};
+
+
+/* VOTAR UN CHISTE*/
+const rateJoke = (num: number) => {
+    switch (num) {
+        case 1:
+            rate = 1;
+            break;
+        case 2:
+            rate = 2;
+            break;
+        case 3:
+            rate = 3;
+            break;
+    }
+
+    check = true;
+}
+
+
+//GUARDAR LA VOTACION
+const addRate = () => {
+    //Guardamos el chiste en el objeto
+    joke.joke = document.getElementById("texto-chiste")!.innerHTML;
+    //Guardamos la fecha
+    const d = new Date();
+    joke.date = d.toISOString();
+    //Guardamos la puntuación
+    joke.score = rate;
+    //Lo añadimos al array
+    reportAcudits.push({ joke });
+    //Resultado
+    console.log(reportAcudits)
+}
+
+
+/* NIVELL 2 !!! */
+
+
+const getWheather = async () => {
+    const data = await fetch("https://www.el-tiempo.net/api/json/v2/provincias/08");
+
+    const wheather = await data.json();
+    document.getElementById("wheather_text")!.innerHTML = wheather.ciudades[6].temperatures.max + " ºC";
+
+}
+
+getWheather();
+
+
+/* EXTRA --> DESACTIVADO EN EL ULTIMO COMMIT POR LA MAQUETACION */
+/*
 const generarChiste = async () => {
     //Mostrar loading mientras cargamos el chiste
     document.getElementById("loading")?.classList.remove("hidden")
@@ -64,8 +164,6 @@ const generarChiste = async () => {
 };
 
 
-/* EFECTO HOVER PARA LAS ESTRELLAS */
-
 const hoverStars = (numStars: number, color: string) => {
     if (!check)
         switch (numStars) {
@@ -90,7 +188,6 @@ const hoverStars = (numStars: number, color: string) => {
         }
 }
 
-/* VOTAR UN CHISTE Y EFECTO CLICK DE LAS ESTRELLAS */
 const rateJoke = (numStars: number) => {
     check = true;
 
@@ -123,26 +220,6 @@ const rateJoke = (numStars: number) => {
     }
 };
 
-
-//GUARDAR LA VOTACION
-const addRate = () => {
-    //Guardamos el chiste en el objeto
-    joke.joke = document.getElementById("texto-chiste")!.innerHTML;
-    //Guardamos la fecha
-    const d = new Date();
-    joke.date = d.toISOString();
-    //Guardamos la puntuación
-    joke.score = rate;
-    //Lo añadimos al array
-    reportAcudits.push({ joke });
-    //Resultado
-    console.log(reportAcudits)
-}
-
-
-/* NIVELL 2 !!! */
-
-
 const getWheather = async () => {
     const data = await fetch("https://www.el-tiempo.net/api/json/v2/provincias/08");
 
@@ -152,4 +229,4 @@ const getWheather = async () => {
     console.log(wheather);
 }
 
-getWheather();
+*/
