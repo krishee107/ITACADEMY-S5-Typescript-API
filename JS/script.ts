@@ -34,7 +34,7 @@ const generarChiste = async () => {
     const randomNum = Math.floor(Math.random() * 10);
     let API: string = "";
     if (randomNum % 2 == 0) API = "https://v2.jokeapi.dev/joke/Any?lang=es&type=single";
-    else API = "http://icanhazdadjoke.com";
+    else API = "https://icanhazdadjoke.com";
 
     //Fetch a la API
     const data = await fetch(API, {
