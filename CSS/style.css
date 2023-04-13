@@ -27,3 +27,13 @@ body {
 .card .title {
     min-height: 100px;
 }
+
+/* Estrellas */
+.fa-solid {
+    color: gray;
+}
+
+.fa-solid:hover {
+    cursor: pointer;
+    color: yellow;
+}

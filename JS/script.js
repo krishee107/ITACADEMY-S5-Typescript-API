@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+let reportAcudits = [];
 const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield fetch("http://icanhazdadjoke.com", {
         headers: {
@@ -25,3 +26,46 @@ const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log("No se ha podido cargar el chiste");
     }
 });
+/* Hovers de las estrellas */
+let check = false;
+const hoverStars = (numStars, color) => {
+    if (!check)
+        switch (numStars) {
+            case 1:
+                document.getElementById("one-star").style.color = color;
+                break;
+            case 2:
+                document.getElementById("one-star").style.color = color;
+                document.getElementById("two-star").style.color = color;
+                break;
+            case 3:
+                document.getElementById("one-star").style.color = color;
+                document.getElementById("two-star").style.color = color;
+                document.getElementById("three-star").style.color = color;
+                break;
+            default:
+                break;
+        }
+};
+const rateJoke = (numStars) => {
+    check = true;
+    switch (numStars) {
+        case 1:
+            document.getElementById("one-star").style.color = "yellow";
+            document.getElementById("two-star").style.color = "gray";
+            document.getElementById("three-star").style.color = "gray";
+            break;
+        case 2:
+            document.getElementById("one-star").style.color = "yellow";
+            document.getElementById("two-star").style.color = "yellow";
+            document.getElementById("three-star").style.color = "gray";
+            break;
+        case 3:
+            document.getElementById("one-star").style.color = "yellow";
+            document.getElementById("two-star").style.color = "yellow";
+            document.getElementById("three-star").style.color = "yellow";
+            break;
+        default:
+            break;
+    }
+};
