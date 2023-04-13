@@ -8,16 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+;
 let reportAcudits = [];
 let check = false;
+let rate;
+let joke = {
+    joke: "",
+    score: undefined,
+    date: ""
+};
 /* GENERAR UN NUEVO CHISTE */
 const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     //Ocultar las estrellas
     document.getElementById("stars-box").style.display = "none";
     //Reiniciarlas a 0 votos
-    rateJoke(0);
-    check = false;
+    if (check) {
+        addRate();
+        rateJoke(0);
+        check = false;
+        rate = null;
+    }
     //Mostrar loading
     (_a = document.getElementById("loading")) === null || _a === void 0 ? void 0 : _a.classList.remove("hidden");
     //Fetch
@@ -26,16 +37,16 @@ const generarChiste = () => __awaiter(void 0, void 0, void 0, function* () {
             "Accept": "application/json"
         },
     });
-    const joke = yield data.json();
+    const newjoke = yield data.json();
     //Quitar el loading
     (_b = document.getElementById("loading")) === null || _b === void 0 ? void 0 : _b.classList.add("hidden");
     //Comprobamos errores 
     //Funciona
-    if (joke.status === 200) {
+    if (newjoke.status === 200) {
         //Mostrar estrellas
         document.getElementById("stars-box").style.display = "flex";
         //Mostrar chiste
-        document.getElementById("texto-chiste").innerHTML = joke.joke;
+        document.getElementById("texto-chiste").innerHTML = newjoke.joke;
     }
     //No funciona
     else {
@@ -68,7 +79,6 @@ const hoverStars = (numStars, color) => {
 /* VOTAR UN CHISTE Y EFECTO CLICK DE LAS ESTRELLAS */
 const rateJoke = (numStars) => {
     check = true;
-    let rate;
     switch (numStars) {
         case 1:
             document.getElementById("one-star").style.color = "yellow";
@@ -92,6 +102,18 @@ const rateJoke = (numStars) => {
             document.getElementById("one-star").style.color = "gray";
             document.getElementById("two-star").style.color = "gray";
             document.getElementById("three-star").style.color = "gray";
+            rate = null;
             break;
     }
+};
+const addRate = () => {
+    //Guardamos el chiste en el objeto
+    joke.joke = document.getElementById("texto-chiste").innerHTML;
+    //Guardamos la fecha
+    const d = new Date();
+    joke.date = d.toISOString();
+    //Guardamos la puntuación
+    joke.score = rate;
+    reportAcudits.push({ joke });
+    console.log(reportAcudits);
 };

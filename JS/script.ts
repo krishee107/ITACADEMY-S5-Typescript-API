@@ -1,20 +1,32 @@
-type Joke = {
+
+interface Joke {
     joke: string,
-    score: number,
+    score: number | null | undefined,
     date: string
-}
+};
 
-let reportAcudits: Joke[] = [];
+let reportAcudits: { joke: Joke }[] = [];
 let check = false;
+let rate: number | null;
 
+
+let joke: Joke = {
+    joke: "",
+    score: undefined,
+    date: ""
+}
 
 /* GENERAR UN NUEVO CHISTE */
 const generarChiste = async () => {
     //Ocultar las estrellas
     document.getElementById("stars-box")!.style.display = "none";
     //Reiniciarlas a 0 votos
-    rateJoke(0);
-    check = false;
+    if (check) {
+        addRate();
+        rateJoke(0);
+        check = false;
+        rate = null;
+    }
     //Mostrar loading
     document.getElementById("loading")?.classList.remove("hidden")
 
@@ -25,17 +37,17 @@ const generarChiste = async () => {
         },
     });
 
-    const joke = await data.json();
+    const newjoke = await data.json();
     //Quitar el loading
     document.getElementById("loading")?.classList.add("hidden")
 
     //Comprobamos errores 
     //Funciona
-    if (joke.status === 200) {
+    if (newjoke.status === 200) {
         //Mostrar estrellas
         document.getElementById("stars-box")!.style.display = "flex";
         //Mostrar chiste
-        document.getElementById("texto-chiste")!.innerHTML = joke.joke;
+        document.getElementById("texto-chiste")!.innerHTML = newjoke.joke;
     }
     //No funciona
     else {
@@ -73,7 +85,6 @@ const hoverStars = (numStars: number, color: string) => {
 /* VOTAR UN CHISTE Y EFECTO CLICK DE LAS ESTRELLAS */
 const rateJoke = (numStars: number) => {
     check = true;
-    let rate: number;
 
     switch (numStars) {
         case 1:
@@ -99,6 +110,19 @@ const rateJoke = (numStars: number) => {
             document.getElementById("one-star")!.style.color = "gray";
             document.getElementById("two-star")!.style.color = "gray";
             document.getElementById("three-star")!.style.color = "gray";
+            rate = null;
             break;
     }
 };
+
+const addRate = () => {
+    //Guardamos el chiste en el objeto
+    joke.joke = document.getElementById("texto-chiste")!.innerHTML;
+    //Guardamos la fecha
+    const d = new Date();
+    joke.date = d.toISOString();
+    //Guardamos la puntuación
+    joke.score = rate;
+    reportAcudits.push({ joke });
+    console.log(reportAcudits)
+}
