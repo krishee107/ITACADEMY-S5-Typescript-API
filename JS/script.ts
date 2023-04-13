@@ -131,3 +131,18 @@ const addRate = () => {
     //Resultado
     console.log(reportAcudits)
 }
+
+
+/* NIVELL 2 !!! */
+
+
+const getWheather = async () => {
+    const data = await fetch("https://www.el-tiempo.net/api/json/v2/provincias/08");
+
+    const wheather = await data.json();
+    document.getElementById("wheather_title")!.innerHTML = wheather.title;
+    document.getElementById("wheather_text")!.innerHTML = wheather.today.p;
+    console.log(wheather);
+}
+
+getWheather();
